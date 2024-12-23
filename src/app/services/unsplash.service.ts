@@ -34,7 +34,7 @@ export class UnsplashService {
     return from(this.api.collections.getPhotos({ collectionId: id }));
   }
 
-  getPhoto(id: string): Observable<ApiResponse<Full>> {
-    return from(this.api.photos.get({ photoId: id }));
+  getPhoto<T = Full>(id: string): Observable<ApiResponse<T>> {
+    return from(this.api.photos.get({ photoId: id }) as Promise<ApiResponse<T>>);
   }
 }

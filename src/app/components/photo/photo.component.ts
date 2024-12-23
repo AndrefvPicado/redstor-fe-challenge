@@ -20,14 +20,28 @@ export class PhotoComponent implements OnInit {
   ngOnInit(): void {
     const photoId = this.activatedRoute.snapshot.params['photoId'];
 
-    this.unsplashService.getPhoto(photoId).subscribe(photo => {
-      // toDo Is there a better way to improve this object mapping?
-      this.photo$.next(photo.response as unknown as IPhoto);
+    this.unsplashService.getPhoto<IPhoto>(photoId).subscribe( {
+      next: api_response => {
+        if (!api_response.response) {
+          console.error('Error fetching photo');
+          return;
+        }
+        const photo = api_response.response;
+        photo.description = this.capitalize(photo.description || '')
+        this.photo$.next(photo);
+      },
+        error: err => {
+          console.error('Error fetching photo: ', err)
+        }
     });
   }
 
   handleGotoCollection() {
     const collectionId = this.activatedRoute.snapshot.params['collectionId'];
     return this.router.navigate(['collection', collectionId]);
+  }
+
+  private capitalize(name: string): string {
+    return name.charAt(0).toUpperCase() + name.slice(1);
   }
 }
