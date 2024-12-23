@@ -1,0 +1,37 @@
+.no-bullets {
+    list-style-type: none;
+}
+
+.list-margins {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.list-icon {
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+ul.list-icon li {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.list-icon li::before {
+    content: url('../../../assets/redstor.svg');
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+
+.fa-icon-style {
+    color: grey;
+    padding: 5px;
+}
+
+.no-hover:hover, .no-hover:hover *{
+    color: grey !important;
+    cursor: default;
+}

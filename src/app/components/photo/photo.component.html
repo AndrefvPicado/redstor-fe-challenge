@@ -1,12 +1,3 @@
-<!-- toDo Could you optimise this piece of code? -->
-<div class="breadcrumbs">
-  <a routerLink="/"><span>Collections</span></a>
-  <span>></span>
-  <a (click)="handleGotoCollection()"><span>Collection</span></a>
-  <span>></span>
-  <a class="active"><span>Photo</span></a>
-</div>
-
 <div class="layout-container">
   <!-- toDo Could you optimise this piece of code? -->
   <mat-progress-bar *ngIf="isLoading$ | async"></mat-progress-bar>

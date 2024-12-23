@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ICollection } from '@app/interfaces';
-import { UnsplashService } from '@app/services';
+import { BreadcrumbsService, UnsplashService } from '@app/services';
 
 // toDo Transform this module in a standalone component
 @Component({
@@ -9,7 +9,8 @@ import { UnsplashService } from '@app/services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
-  readonly unsplashService: UnsplashService = inject(UnsplashService);
+  private readonly unsplashService: UnsplashService = inject(UnsplashService);
+  private readonly breadcrumbService: BreadcrumbsService = inject(BreadcrumbsService);
 
   // toDo Why the changes are not reflected in the UI?
   isLoading: boolean = false;
@@ -26,5 +27,7 @@ export class HomeComponent implements OnInit {
       this.collections = collections?.response?.results || [];
       this.isLoading = false;
     });
+
+    this.breadcrumbService.addBreadcrumb({label: 'Collections', url: '', level: 0})
   }
 }

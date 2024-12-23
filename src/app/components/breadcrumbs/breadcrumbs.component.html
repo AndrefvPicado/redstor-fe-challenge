@@ -1,0 +1,6 @@
+<ul class="no-bullets list-margins list-icon">
+  <li *ngFor="let breadcrumb of breadcrumbs$ | async; let last = last" [ngClass]="{'no-hover': last}">
+      <i class="fas fa-chevron-right fa-icon-style"></i>
+      <a [routerLink]="breadcrumb.url" class="breadcrumbItem">{{ breadcrumb.label }}</a>
+    </li>
+  </ul>

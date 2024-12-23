@@ -9,9 +9,17 @@
   }
 }
 
-.breadcrumbs {
-  background-color: rgb(7 174 197 / 20%);
+.breadcrumbItem {
+  cursor: pointer;
+  color: grey;
+  text-decoration: none;
+}
 
+.breadcrumbItem:hover {
+  color: #7b7bff;
+}
+
+.breadcrumbs {
   a {
     padding: 0 16px;
     line-height: 36px;
@@ -20,13 +28,11 @@
 
     &.active {
       span {
-        cursor: initial;
-        font-weight: 500;
+        cursor: pointer;
       }
-    }
-
-    span {
-      color: #4d4d4d;
+      span:hover {
+        color: #7b7bff;
+      }
     }
   }
 }
