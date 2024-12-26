@@ -25,6 +25,7 @@
     "@ngrx/store": "^17.0.0",
     "@ngrx/store-devtools": "^17.0.0",
     "masonry-layout": "^4.2.2",
+    "ngx-infinite-scroll": "^17.0.1",
     "ngx-masonry": "^14.0.1",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.2",

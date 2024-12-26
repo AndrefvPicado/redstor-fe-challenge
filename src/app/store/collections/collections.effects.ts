@@ -14,7 +14,7 @@ export class CollectionsEffects {
       ofType(CollectionsActions.loadCollections),
       switchMap(() =>
         this.unsplash
-          .listCollections()
+          .listCollections(1)
           .pipe(
             map(result =>
               result.type === 'success'
