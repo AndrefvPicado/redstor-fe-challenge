@@ -38,21 +38,14 @@
 }
 
 .gallery {
-  max-width: 86vw;
   margin: 0 auto;
-  padding: 12px;
-  place-content: center;
-
-  flex-wrap: wrap;
-  display: flex;
-  flex-direction: row;
-
+  width: auto;
+  
   .gallery-item {
     margin: 12px;
-    border-radius: 12px;
-    background-color: #fafafa;
+    border-radius: 2px;
     cursor: pointer;
-
+    
     &:hover {
       box-shadow: 0 8px 8px 8px rgba(0, 0, 0, 0.2), 0 8px 8px 0 rgba(0, 0, 0, 0.14), 0 8px 8px 0 rgba(0, 0, 0, 0.12) !important;
       transform: translate3d(0, 0, 0);
@@ -60,3 +53,20 @@
     }
   }
 }
+
+mat-card-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 46px;
+  padding: 0px !important;
+  background-color: #ebebeb;
+}
+
+.title {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.masonry-item { width: auto; }

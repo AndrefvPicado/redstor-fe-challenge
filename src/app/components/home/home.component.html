@@ -2,16 +2,14 @@
   <!-- toDo Could you optimise this piece of code? -->
   <mat-progress-bar *ngIf="isLoading"></mat-progress-bar>
 
-  <div class="gallery">
-    <!-- toDo Is there another way to rewrite this with new Angular 17 features? -->
-    <ng-container *ngFor="let collection of collections">
-      <!-- toDO Could you improve the styling to be responsive? -->
-      <mat-card class="gallery-item thumbnails" [routerLink]="'/collection/' + collection.id">
-        <img mat-card-image [src]="collection.cover_photo.urls.small" [alt]="collection.cover_photo.description" />
+  <ngx-masonry class="gallery" [options]="{ fitWidth: true, gutter: 10, }">
+    <div ngxMasonryItem class="masonry-item gallery-item" *ngFor="let collection of collections">
+      <mat-card [routerLink]="'/collection/' + collection.id">
+        <img  mat-card-image [src]="collection.cover_photo.urls.small" [alt]="collection.cover_photo.description" />
         <mat-card-content>
           <p class="title">{{ collection.title }}</p>
         </mat-card-content>
       </mat-card>
-    </ng-container>
-  </div>
+    </div>
+  </ngx-masonry>
 </div>

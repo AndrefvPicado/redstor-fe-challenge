@@ -4,10 +4,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [CommonModule, RouterModule, MatProgressBarModule, MatCardModule],
+  imports: [CommonModule, RouterModule, MatProgressBarModule, MatCardModule, NgxMasonryModule],
   exports: [HomeComponent]
 })
 export class HomeModule {}

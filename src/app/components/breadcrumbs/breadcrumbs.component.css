@@ -19,7 +19,7 @@ ul.list-icon li {
     margin-right: 10px;
 }
 
-.list-icon li::before {
+.list-icon::before {
     content: url('../../../assets/redstor.svg');
     display: inline-block;
     width: 16px;

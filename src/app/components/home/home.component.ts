@@ -6,7 +6,7 @@ import { BreadcrumbsService, UnsplashService } from '@app/services';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
   private readonly unsplashService: UnsplashService = inject(UnsplashService);
@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // toDo Improve this call using the store (ngrx)
     this.isLoading = true;
-
     // toDo What's happening with this subscription in case the component is destroyed?
     // toDo Is there another way to do this operation?
     // toDo Could we add a pagination?
