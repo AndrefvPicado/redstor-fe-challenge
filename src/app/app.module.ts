@@ -14,6 +14,7 @@ import { environment } from '@environments/environment';
 import { TopBarModule } from './components';
 import { BreadcrumbsModule } from "./components/breadcrumbs/breadcrumbs.module";
 import { NgxMasonryModule } from 'ngx-masonry';
+import { LoadingBarComponent } from "./loading-bar/loading-bar.component";
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,12 +25,14 @@ import { NgxMasonryModule } from 'ngx-masonry';
     TopBarModule,
     BreadcrumbsModule,
     NgxMasonryModule,
+    LoadingBarComponent,
     // Store
     // toDo Is there a way to load the store just for the module or component in use?
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([CollectionsEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    BreadcrumbsModule
+    BreadcrumbsModule,
+    LoadingBarComponent
 ],
   providers: [],
   bootstrap: [AppComponent]

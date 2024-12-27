@@ -30,7 +30,7 @@ export class BreadcrumbsService {
 
     public removeBreadcrumb(breadcrumb: Breadcrumb){
         const currentBreadcrumbs = this.breadcrumbsSubject.getValue();
-        const updatedBreadcrumbs = currentBreadcrumbs.filter(breadcrumb => breadcrumb.level !== breadcrumb.level);
-        this.breadcrumbsSubject.next(currentBreadcrumbs);
+        const updatedBreadcrumbs = currentBreadcrumbs.filter(el => el.level !== breadcrumb.level);
+        this.breadcrumbsSubject.next(updatedBreadcrumbs);
     }
 }

@@ -1,6 +1,9 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { ICollection } from '@app/interfaces';
-import { BreadcrumbsService, UnsplashService } from '@app/services';
+import { AppSharedService, BreadcrumbsService, UnsplashService } from '@app/services';
+import { Subject } from 'rxjs/internal/Subject';
+import { takeUntil } from 'rxjs/operators';
 
 // toDo Transform this module in a standalone component
 @Component({
@@ -8,20 +11,23 @@ import { BreadcrumbsService, UnsplashService } from '@app/services';
   templateUrl: './home.component.html',
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   private readonly unsplashService: UnsplashService = inject(UnsplashService);
+  private readonly appSharedService: AppSharedService = inject(AppSharedService);
   private readonly breadcrumbService: BreadcrumbsService = inject(BreadcrumbsService);
+  private readonly router: Router = inject(Router);
   private currentPage: number = 1;
-  
-  // toDo Why the changes are not reflected in the UI?
-  isLoading: boolean = false;
+  private destroy$ = new Subject<void>();
   collections: ICollection[] = [];
 
   ngOnInit(): void {
-
-
     this.fetchData();
     this.breadcrumbService.addBreadcrumb({label: 'Collections', url: '', level: 0})
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   onScroll(){
@@ -30,14 +36,19 @@ export class HomeComponent implements OnInit {
   }
 
   private fetchData(){
-    // toDo Improve this call using the store (ngrx)
-    // toDo What's happening with this subscription in case the component is destroyed?
-    // toDo Is there another way to do this operation?
-    // toDo Could we add a pagination?
-    this.isLoading = true;
-    this.unsplashService.listCollections(this.currentPage).subscribe(collections => {
+    this.appSharedService.startLoading();
+    this.unsplashService.listCollections(this.currentPage)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(collections => {
       this.collections = this.collections.concat(collections?.response?.results || []);
-      this.isLoading = false;
+      this.appSharedService.stopLoading();
     });
+  }
+
+  public collectionClicked(collection: ICollection){
+    this.breadcrumbService.addBreadcrumb({label: collection.title, url: '', level: 1})
+
+    const collectionId = collection.id;
+    return this.router.navigate(['collection', collectionId]);
   }
 }

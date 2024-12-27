@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPhoto } from '@app/interfaces';
-import { BreadcrumbsService, UnsplashService } from '@app/services';
+import { AppSharedService, BreadcrumbsService, UnsplashService } from '@app/services';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
 // toDo Is there a way to improve the rendering strategy in this component?
@@ -11,16 +11,16 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 })
 export class PhotoComponent implements OnInit {
   private readonly unsplashService: UnsplashService = inject(UnsplashService);
+  private readonly appSharedService: AppSharedService = inject(AppSharedService);
   private readonly router: Router = inject(Router);
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private readonly breadcrumbService: BreadcrumbsService = inject(BreadcrumbsService);
 
   readonly photo$: BehaviorSubject<IPhoto> = new BehaviorSubject<IPhoto>({} as IPhoto);
-  readonly isLoading$: Observable<boolean> = this.photo$.pipe(map(p => !p));
 
   ngOnInit(): void {
     const photoId = this.activatedRoute.snapshot.params['photoId'];
-
+    this.appSharedService.startLoading();
     this.unsplashService.getPhoto<IPhoto>(photoId).subscribe( {
       next: api_response => {
         if (!api_response.response) {
@@ -30,9 +30,11 @@ export class PhotoComponent implements OnInit {
         const photo = api_response.response;
         photo.description = this.capitalize(photo.description || '')
         this.photo$.next(photo);
+        this.appSharedService.stopLoading();
       },
         error: err => {
           console.error('Error fetching photo: ', err)
+          this.appSharedService.stopLoading();
         }
     });
 

@@ -1,9 +1,5 @@
 <div class="layout-container">
-  <!-- toDo Could you optimise this piece of code? -->
-  <mat-progress-bar *ngIf="isLoading$ | async"></mat-progress-bar>
-
   <div class="gallery">
-    <!-- toDO Could you improve the styling to be responsive? -->
     <ng-container *ngFor="let photo of photos$ | async">
       <mat-card class="gallery-item thumbnails" (click)="handleGotoPhoto(photo)">
         <img mat-card-image [src]="photo.urls.small" [alt]="photo.alt_description" />
