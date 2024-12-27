@@ -1,13 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IPhoto } from '@app/interfaces';
 import { AppSharedService, BreadcrumbsService, UnsplashService } from '@app/services';
-import { BehaviorSubject, Observable, map } from 'rxjs';
 
 // toDo Is there a way to improve the rendering strategy in this component?
 @Component({
   selector: 'app-photo',
-  templateUrl: './photo.component.html'
+  templateUrl: './photo.component.html',
+  standalone: true,
+  imports: [CommonModule, RouterModule, MatProgressBarModule, MatCardModule, MatIconModule],
 })
 export class PhotoComponent implements OnInit {
   private readonly unsplashService: UnsplashService = inject(UnsplashService);

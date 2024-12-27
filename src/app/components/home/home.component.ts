@@ -1,15 +1,20 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { Router, RouterModule } from '@angular/router';
 import { ICollection } from '@app/interfaces';
 import { AppSharedService, BreadcrumbsService, UnsplashService } from '@app/services';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { NgxMasonryModule } from 'ngx-masonry';
 import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/operators';
 
-// toDo Transform this module in a standalone component
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  standalone: true,
+  imports: [CommonModule, RouterModule, MatProgressBarModule, MatCardModule, NgxMasonryModule, InfiniteScrollDirective]
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private readonly unsplashService: UnsplashService = inject(UnsplashService);

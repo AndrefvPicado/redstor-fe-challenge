@@ -1,13 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IPhoto } from '@app/interfaces';
 import { AppSharedService, BreadcrumbsService, UnsplashService } from '@app/services';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { NgxMasonryModule } from 'ngx-masonry';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-collection',
   templateUrl: './collection.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, RouterModule, MatProgressBarModule, MatCardModule, MatIconModule, NgxMasonryModule, InfiniteScrollDirective],
+
 })
 export class CollectionComponent implements OnInit, OnDestroy {
   private readonly unsplashService: UnsplashService = inject(UnsplashService);

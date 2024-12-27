@@ -11,10 +11,11 @@ import { CollectionsEffects, metaReducers, reducers } from './store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '@environments/environment';
-import { TopBarModule } from './components';
-import { BreadcrumbsModule } from "./components/breadcrumbs/breadcrumbs.module";
 import { NgxMasonryModule } from 'ngx-masonry';
 import { LoadingBarComponent } from "./loading-bar/loading-bar.component";
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { CollectionComponent } from './components/collection/collection.component';
+import { TopbarComponent } from './components/topbar/topbar.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,8 +23,9 @@ import { LoadingBarComponent } from "./loading-bar/loading-bar.component";
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    TopBarModule,
-    BreadcrumbsModule,
+    TopbarComponent,
+    CollectionComponent,
+    BreadcrumbsComponent,
     NgxMasonryModule,
     LoadingBarComponent,
     // Store
@@ -31,8 +33,6 @@ import { LoadingBarComponent } from "./loading-bar/loading-bar.component";
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([CollectionsEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    BreadcrumbsModule,
-    LoadingBarComponent
 ],
   providers: [],
   bootstrap: [AppComponent]

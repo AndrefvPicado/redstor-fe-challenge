@@ -90,3 +90,52 @@ mat-card-content {
 }
 
 .masonry-item { width: auto; }
+
+
+// css for breacrumbs
+.no-bullets {
+  list-style-type: none;
+}
+
+.list-margins {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.list-icon {
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+ul.list-icon li {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.list-icon::before {
+  content: url('../../../assets/redstor.svg');
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+.fa-icon-style {
+  color: grey;
+  padding: 5px;
+}
+
+.no-hover:hover, .no-hover:hover *{
+  color: grey !important;
+  cursor: default;
+}
+
+// topbar styles
+.mat-toolbar.toolbar {
+  height: fit-content;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #d1d1d1;
+  color: #545454;
+}
