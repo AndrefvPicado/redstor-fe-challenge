@@ -16,7 +16,6 @@ import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, RouterModule, MatProgressBarModule, MatCardModule, MatIconModule, NgxMasonryModule, InfiniteScrollDirective],
-
 })
 export class CollectionComponent implements OnInit, OnDestroy {
   private readonly unsplashService: UnsplashService = inject(UnsplashService);
@@ -30,8 +29,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetchData();
-    this.breadcrumbService.addBreadcrumb({label: 'Collections', url: '/', level: 0})
-    this.breadcrumbService.addBreadcrumb({label: 'Collection', url: '', level: 1})
+    this.breadcrumbService.removeLowerBreadcrumb(2);
   }
   
   private fetchData(){
@@ -48,7 +46,6 @@ export class CollectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.breadcrumbService.removeBreadcrumb({label: 'Collection', url: '', level: 1})
     this.destroy$.next();
     this.destroy$.complete();
   }

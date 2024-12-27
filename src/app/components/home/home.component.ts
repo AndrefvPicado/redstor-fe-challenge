@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.fetchData();
     this.breadcrumbService.addBreadcrumb({label: 'Collections', url: '', level: 0})
+    this.breadcrumbService.removeLowerBreadcrumb(1);
   }
 
   ngOnDestroy(): void {
@@ -51,9 +52,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   public collectionClicked(collection: ICollection){
-    this.breadcrumbService.addBreadcrumb({label: collection.title, url: '', level: 1})
-
     const collectionId = collection.id;
+    this.breadcrumbService.addBreadcrumb({label: collection.title, url: 'collection/' + collectionId, level: 1})
     return this.router.navigate(['collection', collectionId]);
   }
 }

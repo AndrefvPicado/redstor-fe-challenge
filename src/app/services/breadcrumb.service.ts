@@ -8,19 +8,12 @@ export class BreadcrumbsService {
     breadcrumbs$ = this.breadcrumbsSubject.asObservable();
 
     public addBreadcrumb(newBreadcrumb: Breadcrumb){
-        const currentBreadcrumbs = this.breadcrumbsSubject.getValue();
+        let currentBreadcrumbs = this.breadcrumbsSubject.getValue();
         const existingBreadcrumbIndex = currentBreadcrumbs.findIndex(breadcrumb => breadcrumb.level === newBreadcrumb.level);
-        
-        if (existingBreadcrumbIndex !== -1) {
-        currentBreadcrumbs[existingBreadcrumbIndex] = {
-            ...currentBreadcrumbs[existingBreadcrumbIndex],
-            url: newBreadcrumb.url,
-            label: newBreadcrumb.label
-        };
-        } else {
+        if (existingBreadcrumbIndex === -1) { // if exists
             currentBreadcrumbs.push(newBreadcrumb);
         }
-
+        currentBreadcrumbs = currentBreadcrumbs.sort((a, b) => a.level - b.level);
         this.breadcrumbsSubject.next(currentBreadcrumbs);
     }
 
@@ -31,6 +24,12 @@ export class BreadcrumbsService {
     public removeBreadcrumb(breadcrumb: Breadcrumb){
         const currentBreadcrumbs = this.breadcrumbsSubject.getValue();
         const updatedBreadcrumbs = currentBreadcrumbs.filter(el => el.level !== breadcrumb.level);
+        this.breadcrumbsSubject.next(updatedBreadcrumbs);
+    }
+    
+    public removeLowerBreadcrumb(level: number){
+        const currentBreadcrumbs = this.breadcrumbsSubject.getValue();
+        const updatedBreadcrumbs = currentBreadcrumbs.filter(el => el.level !== level);
         this.breadcrumbsSubject.next(updatedBreadcrumbs);
     }
 }

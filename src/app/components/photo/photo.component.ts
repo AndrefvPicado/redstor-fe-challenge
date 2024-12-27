@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -14,7 +14,7 @@ import { AppSharedService, BreadcrumbsService, UnsplashService } from '@app/serv
   imports: [CommonModule, RouterModule, MatProgressBarModule, MatCardModule, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PhotoComponent implements OnInit {
+export class PhotoComponent implements OnInit, OnDestroy {
   private readonly unsplashService: UnsplashService = inject(UnsplashService);
   private readonly appSharedService: AppSharedService = inject(AppSharedService);
   private readonly router: Router = inject(Router);
@@ -46,6 +46,10 @@ export class PhotoComponent implements OnInit {
     });
 
     this.breadcrumbService.addBreadcrumb({label: 'Photo', url: '', level: 2})
+  }
+
+  ngOnDestroy(): void {
+    this.breadcrumbService.removeBreadcrumb({label: 'Photo', url: '', level: 2})
   }
 
   private capitalize(name: string): string {
