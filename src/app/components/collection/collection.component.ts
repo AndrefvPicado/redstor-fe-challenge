@@ -53,11 +53,6 @@ export class CollectionComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
   
-  handleGotoCollection() {
-    const collectionId = this.activatedRoute.snapshot.params['collectionId'];
-    return this.router.navigate(['collection', collectionId]);
-  }
-  
   handleGotoPhoto(photo: IPhoto) {
     const collectionId = this.activatedRoute.snapshot.params['collectionId'];
     return this.router.navigate(['collection', collectionId, 'photo', photo.id]);
