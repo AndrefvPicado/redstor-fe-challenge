@@ -1,35 +1,28 @@
 <div class="layout-container">
-  <div class="gallery" fxLayout.sm="column">
-    <!-- toDO Could you improve the styling to be responsive? -->
-    <mat-card *ngIf="photo$ | async as photo" class="preview">
-      <!-- toDO Why is throwing some console errors? -->
-
+  <div class="gallery">
+    <mat-card *ngIf="loaded() && photo()" class="preview card-margins">
       <mat-card-header>
-        <img mat-card-avatar [src]="photo.user.profile_image.medium" />
-        <mat-card-title>{{ photo.user.first_name }} {{ photo.user.last_name }}</mat-card-title>
-        <mat-card-subtitle *ngIf="photo.user.location">
+        <img mat-card-avatar [src]="photo()!.user.profile_image.medium" />
+        <mat-card-title>{{ photo()!.user.first_name }} {{ photo()!.user.last_name }}</mat-card-title>
+        <mat-card-subtitle *ngIf="photo()!.user.location">
           <mat-icon inline>where_to_vote</mat-icon>
-          {{ photo.user.location }}
+          {{ photo()!.user.location }}
         </mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content>
         <div>
           <div>
-            <p>{{ photo.description }}</p>
+            <p class="title">{{ photo()!.description ?  photo()!.description :  photo()!.alt_description }}</p>
           </div>
-          <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="end">
-            <p fxLayoutAlign="center">
-              <mat-icon inline>favorite</mat-icon>
-              {{ photo.likes }} likes &nbsp;|&nbsp;&nbsp;
-              <mat-icon inline>visibility</mat-icon>
-              {{ photo.views }} views
-            </p>
+          <div class="likes-container">
+            <p class="title"><mat-icon inline>favorite</mat-icon>{{ photo()!.likes }}</p>
+            <p class="title"><mat-icon inline>visibility</mat-icon>{{ photo()!.views }}</p>
           </div>
         </div>
       </mat-card-content>
 
-      <img mat-card-image [src]="photo.urls.full" [alt]="photo.alt_description" />
+      <img mat-card-image [src]="photo()!.urls.full" [alt]="photo()!.alt_description" />
     </mat-card>
   </div>
 </div>

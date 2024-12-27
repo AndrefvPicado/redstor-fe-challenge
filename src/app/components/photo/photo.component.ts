@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPhoto } from '@app/interfaces';
 import { AppSharedService, BreadcrumbsService, UnsplashService } from '@app/services';
@@ -16,7 +16,8 @@ export class PhotoComponent implements OnInit {
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private readonly breadcrumbService: BreadcrumbsService = inject(BreadcrumbsService);
 
-  readonly photo$: BehaviorSubject<IPhoto> = new BehaviorSubject<IPhoto>({} as IPhoto);
+  public photo = signal<IPhoto | null>(null);
+  readonly loaded = signal<boolean>(false);
 
   ngOnInit(): void {
     const photoId = this.activatedRoute.snapshot.params['photoId'];
@@ -29,7 +30,8 @@ export class PhotoComponent implements OnInit {
         }
         const photo = api_response.response;
         photo.description = this.capitalize(photo.description || '')
-        this.photo$.next(photo);
+        this.photo.set(photo);
+        this.loaded.set(true)
         this.appSharedService.stopLoading();
       },
         error: err => {
