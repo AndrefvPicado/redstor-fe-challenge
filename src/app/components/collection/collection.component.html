@@ -1,15 +1,14 @@
-<div class="layout-container">
-  <div class="gallery">
-    <ng-container *ngFor="let photo of photos$ | async">
-      <mat-card class="gallery-item thumbnails" (click)="handleGotoPhoto(photo)">
+<div class="layout-container" infiniteScroll  [infiniteScrollDistance]="2" (scrolled)="onScroll()">
+  <ngx-masonry class="gallery" [options]="{ fitWidth: true, gutter: 10, }">
+    <div ngxMasonryItem class="masonry-item gallery-item" *ngFor="let photo of photos$ | async">
+      <mat-card (click)="handleGotoPhoto(photo)">
         <img mat-card-image [src]="photo.urls.small" [alt]="photo.alt_description" />
-        <mat-card-content fxLayout="row" fxLayoutAlign="end" fxLayoutGap="12px">
-          <p>
-            <mat-icon inline>favorite</mat-icon>
-            {{ photo.likes }} likes
-          </p>
+        <mat-card-content>
+          <div class="likes-container">
+            <p class="title"><mat-icon inline>favorite</mat-icon>{{ photo.likes }}</p>
+          </div>
         </mat-card-content>
       </mat-card>
-    </ng-container>
-  </div>
+    </div>
+  </ngx-masonry>
 </div>

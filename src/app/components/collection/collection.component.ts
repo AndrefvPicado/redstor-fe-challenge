@@ -16,23 +16,26 @@ export class CollectionComponent implements OnInit, OnDestroy {
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private readonly breadcrumbService: BreadcrumbsService = inject(BreadcrumbsService);
   private destroy$ = new Subject<void>();
-  
+  private currentPage = 1;
   readonly photos$: BehaviorSubject<IPhoto[]> = new BehaviorSubject<IPhoto[]>([]);
 
   ngOnInit(): void {
-    this.appSharedService.startLoading();
-    const collectionId = this.activatedRoute.snapshot.params['collectionId'];
-
-    this.unsplashService.listCollectionPhotos(collectionId)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(photos => {
-      this.photos$.next(photos?.response?.results || []);
-      this.appSharedService.stopLoading();
-    });
-
+    this.fetchData();
     this.breadcrumbService.addBreadcrumb({label: 'Collections', url: '/', level: 0})
     this.breadcrumbService.addBreadcrumb({label: 'Collection', url: '', level: 1})
-
+  }
+  
+  private fetchData(){
+    const collectionId = this.activatedRoute.snapshot.params['collectionId'];
+    this.appSharedService.startLoading();
+    this.unsplashService.listCollectionPhotos(collectionId, this.currentPage)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(photos => {
+        const currentPhotos = this.photos$.getValue();
+        const newPhotos = photos?.response?.results || [];
+        this.photos$.next([...currentPhotos, ...newPhotos]);
+        this.appSharedService.stopLoading();
+    });
   }
 
   ngOnDestroy(): void {
@@ -49,5 +52,10 @@ export class CollectionComponent implements OnInit, OnDestroy {
   handleGotoPhoto(photo: IPhoto) {
     const collectionId = this.activatedRoute.snapshot.params['collectionId'];
     return this.router.navigate(['collection', collectionId, 'photo', photo.id]);
+  }
+
+  onScroll(){
+    this.currentPage++;
+    this.fetchData();
   }
 }

@@ -73,4 +73,20 @@ mat-card-content {
   margin: 0px !important;
 }
 
+.likes-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.likes-container mat-icon {
+  vertical-align: bottom;
+  padding-right: 5px;
+}
+
+.likes-container .title {
+  margin: 0;
+  line-height: 1.5;
+}
+
 .masonry-item { width: auto; }
