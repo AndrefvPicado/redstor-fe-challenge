@@ -12,7 +12,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '@environments/environment';
 import { NgxMasonryModule } from 'ngx-masonry';
-import { LoadingBarComponent } from "./loading-bar/loading-bar.component";
+import { LoadingBarComponent } from "./components/loading-bar/loading-bar.component";
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { CollectionComponent } from './components/collection/collection.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
