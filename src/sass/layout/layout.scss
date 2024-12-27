@@ -138,4 +138,20 @@ ul.list-icon li {
   padding-bottom: 5px;
   background-color: #d1d1d1;
   color: #545454;
+  justify-content: space-between;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+.dark-mode .mdc-card * {
+  background-color: #4b4b4b;
+  color: white;
+}
+
+.dark-mode .breadcrumbs-color * {
+  color: white;
 }

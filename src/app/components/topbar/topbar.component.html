@@ -1,3 +1,4 @@
 <mat-toolbar class="toolbar">
     <span>Redstor Unsplash Gallery</span>
+    <mat-icon (click)="toggleDarkMode()">{{ (darkMode$ | async) ? 'dark_mode' : 'light_mode' }}</mat-icon>
 </mat-toolbar>
