@@ -10,7 +10,7 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [CollectionComponent],
-  imports: [CommonModule, RouterModule, MatProgressBarModule, MatCardModule, MatIconModule, NgxMasonryModule, InfiniteScrollDirective],
+  imports: [CommonModule, RouterModule.forChild([{ path: '', component: CollectionComponent }]), MatProgressBarModule, MatCardModule, MatIconModule, NgxMasonryModule, InfiniteScrollDirective],
   exports: [CollectionComponent]
 })
 export class CollectionModule {}

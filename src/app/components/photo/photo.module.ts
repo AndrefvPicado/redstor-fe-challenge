@@ -8,7 +8,7 @@ import { PhotoComponent } from './photo.component';
 
 @NgModule({
   declarations: [PhotoComponent],
-  imports: [CommonModule, RouterModule, MatProgressBarModule, MatCardModule, MatIconModule],
+  imports: [CommonModule, RouterModule.forChild([{ path: '', component: PhotoComponent }]), MatProgressBarModule, MatCardModule, MatIconModule],
   exports: [PhotoComponent]
 })
 export class PhotoModule {}
