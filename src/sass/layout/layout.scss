@@ -155,3 +155,7 @@ body.dark-mode {
 .dark-mode .breadcrumbs-color * {
   color: white;
 }
+
+.darkMode-toggle:hover {
+  cursor: pointer;
+}
